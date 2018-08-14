@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Show medicine</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<!--/*@thymesVar id="med" type="java.util.List"*/-->
+<!--/*@thymesVar id="med" type="com.company.medprojectapp.model.Medicine"*/-->
+<body>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="pannel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row" th:if="${not #lists.isEmpty( med.categories )}">
+                            <div class="col-md-3">
+                                <h5>Categories:</h5>
+                            </div>
+                            <div class="col-md-9">
+                                <ul th:each="cate : ${med.getCategories()}">
+                                    <li th:text="${cate.getCategoryName()}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>URL:</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${med.getURL()}">www...</p>
+                            </div>
+                        </div>
+                        <div class="row" th:if="${not #lists.isEmpty( med.producer )}">
+                            <div class="col-md-3">
+                                <h5>Producer:</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${med.getProducer().getProducerName()}">abc</p>
+                            </div>
+                        </div>
+                        <div class="row" th:if="${ not #lists.isEmpty( med.components )}">
+                            <div class="col-md-3">
+                                <h5>Components</h5>
+                            </div>
+                            <a class="btn btn-default" href="#" th:href="@{'/med/components/' + ${med.id} }" role="button">Show</a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Dosage:</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <p th:text="${med.getDosage()}">text</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
