@@ -19,12 +19,12 @@ public class ComponentController {
 
     private final ComponentService componentService;
 
-    public ComponentController(MedService medService, ComponentService componentService) {
+    public ComponentController(ComponentService componentService, MedService medService ) {
         this.medService = medService;
         this.componentService = componentService;
     }
 
-    @GetMapping("med/components/{medId}")
+    @GetMapping("/med/components/{medId}")
     public String showComponentList(@PathVariable String medId, Model model ){
         model.addAttribute( "med", medService.findById( Long.valueOf( medId ) ) );
         return "med/components/list";
@@ -42,7 +42,7 @@ public class ComponentController {
         return "med/components/update";
     }
 
-    @GetMapping("med/components/new/{medId}")
+    @GetMapping("/med/components/new/{medId}")
     public String newComponent( @PathVariable String medId, Model model ){
         log.info( "Created component for medicine id: " + medId);
         Component c = new Component();
@@ -53,7 +53,7 @@ public class ComponentController {
         return "med/components/new";
     }
 
-    @PostMapping("med/components/{medId}")
+    @PostMapping("/med/components/{medId}")
     public String saveOrUpdateComponent( @PathVariable String medId, @ModelAttribute Component component ){
         component.setMedicine( medService.findById( Long.valueOf( medId ) ) );
         Component createdComponent = componentService.createComponent( component );
@@ -61,7 +61,7 @@ public class ComponentController {
         return "redirect:/med/components/" + medId;
     }
 
-    @GetMapping("med/components/delete/{medId}/{compId}")
+    @GetMapping("/med/components/delete/{medId}/{compId}")
     public String deleteByIdComponent( @PathVariable String medId, @PathVariable String compId ){
         componentService.deleteById( Long.valueOf(medId), Long.valueOf(compId));
         return "redirect:/med/components/" + medId;

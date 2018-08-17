@@ -19,12 +19,10 @@ public class MedBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
     private final CategoryRepository categoryRepository;
     private final MedRepository medRepository;
-    private final ComponentRepository componentRepository;
 
-    public MedBootstrap(CategoryRepository categoryRepository, MedRepository medRepository, ComponentRepository componentRepository) {
+    public MedBootstrap(CategoryRepository categoryRepository, MedRepository medRepository ) {
         this.categoryRepository = categoryRepository;
         this.medRepository = medRepository;
-        this.componentRepository = componentRepository;
     }
 
     @Override
@@ -33,7 +31,7 @@ public class MedBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         medRepository.saveAll(getMed());
     }
 
-    private List<Medicine> getMed() {
+    public List<Medicine> getMed() {
 
         List<Medicine> medicines = new ArrayList<>(3);
 
